@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Lecture 9 - Leaflet </title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/business-casual.css" rel="stylesheet">
+    
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- Fonts -->
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Josefin+Slab:100,300,400,600,700,100italic,300italic,400italic,600italic,700italic" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+    <div class="brand">Create Your Leaflet <i class="fa fa-leaf"></i> Map</div>
+    <div class="address-bar">GES 393 - GIS III Lecture 9</div>
+
+    <!-- Navigation
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>-->
+                <!-- navbar-brand is hidden on larger screens, but visible when the menu is collapsed
+            <a class="navbar-brand" href="index.html">Leaflet Map</a>
+            </div> 
+            
+            <!-- Collect the nav links, forms, and other content for toggling 
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="index.html">Home</a>
+                    </li>
+                    <li>
+                        <a href="about.html">About</a>
+                    </li>
+                    <li>
+                        <a href="blog.html"></a>
+                    </li>
+                    <li>
+                        <a href="contact.html">Contact</a>
+                    </li>
+                </ul>
+            </div>-->
+            <!-- /.navbar-collapse 
+        </div>-->
+        <!-- /.container
+    </nav>  -->
+
+    <div class="container">
+
+        <div class="row">
+            <div class="box">
+                <!--<div class="col-lg-12">
+                    <hr>
+                    <h2 class="intro-text text-center"> 
+                        <strong>blog</strong>
+                    </h2>
+                    <hr>
+                </div>-->
+                <div class="col-lg-12 text-center" style="text-align:left">
+                    
+                    <iframe class="box" style="width: 100%; height: 500px" src="../GeoJSON_example/index.html"></iframe>
+                    
+                    <!--<img class="img-responsive img-border img-full" src="img/slide-1.jpg" alt="">-->
+                    <h1>Tutorial: An Interactive Choropleth Map
+                        <br>
+                        <small>July 27, 2015</small>
+                    </h1>
+                    <br><br>
+                    <p>This tutorial will show you how to create a Leaftlet interactive map with the following components (<b>Project 2 Requirements</b>) : 
+                    <br><i class="fa fa-spinner fa-spin"></i> Tile layer as <b>base map</b>
+                    <br><i class="fa fa-spinner fa-spin"></i> Additonal <b>vector data layer</b> using GeoJSON format
+                    <br><i class="fa fa-spinner fa-spin"></i> <b>Styles</b> (color, custom marker, etc.)
+                    <br><i class="fa fa-spinner fa-spin"></i> <b>Interactions</b> (popups, mouse events, etc.)<br>
+                    </p>
+                    
+                    <h3><i class="fa fa-paint-brush"></i> Preparation steps</h3>
+                    <p>Before you start, you may consider to create a <b>new folder</b> for this tutorial where we can save the html, css and javascript files later.</p>
+                    <ul>
+                        <li>First, open your <b>html editor</b> (e.g., Notepad++) and add the following lines to prepare your page. 
+                    These are the basic html tags we have introduced last time. Indentation in HTML is not as critical as in Python, but it helps us better organize the documents. <br>
+                    <pre>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;My map&lt;/title&gt;    
+
+&lt;/head&gt;
+
+&lt;body&gt;
+   
+&lt;/body&gt;    
+&lt;/html&gt;</pre>
+                    Then, save the document as <code>map.html</code> to your working folder. You will have to specify the file extension as <b>.html</b> to make it work.</li>
+
+                        <li><b>Download <a href="https://dl.dropboxusercontent.com/u/63869166/leaflet.zip">Leaflet</a>.</b> Unzip it and you will find two JavaScript files (<code>leaflet-src.js</code> and <code>leaflet.js</code>), one CSS file (<code>leaflet.css</code>) and one folder named <code>images</code>. Copy and paste all of these to your working folder (same location as your HTML file).</li>
+                    
+                        <li>In the <code>head</code> section of your document, include the following line to link to the Leaflet CSS file (Note the <b>relative path</b> is used here as the map.html and leaflet.css file have been saved in the same folder):
+                        <pre>&lt;link rel="stylesheet" href="leaflet.css" /&gt;</pre></li>
+                    
+                        <li>Also include Leaflet JavaScript file in the <code>head</code> section (Similarly, relative path!):
+                    <pre>&lt;script src="leaflet.js"&gt;&lt;/script&gt;</pre></li>
+                    
+                        <li>In the <code>body</code> section, include a <code>div</code> element where you want your map to be. Assign it a certain id and define its height: 
+                        <pre>&lt;div id="map" style="height: 500px"&gt;&lt;/div&gt;</pre></li>
+                        
+                        <li>Also in the <code>body</code> section, include the script element where you will write the code to create the map:
+                        <pre>&lt;script type="text/javascript"&gt;  
+
+&lt;/script&gt;</pre></li>
+                        
+                    </ul>
+                    <p>Now you’re ready to initialize the map and do some stuff with it.</p>
+                    
+                    <h3><i class="fa fa-paint-brush"></i> Set up the base map</h3>
+                    <p>For setting up the base map, all code should be included in the <code>script</code> section we just created.</p>
+                    <ul>
+                        <li>First we will initialize the map and set its view to our chosen geographical coordinates and a zoom level:
+                        <pre><var>var map</var> = L.map('map').setView([37.8, -96], 4);</pre></li>
+                    </ul>
+                        <br><p>With Leaflet, we can add tile layers as base map.
+                    A <strong>tile layer</strong> is a set of web-accessible tiles that reside on a server. Access to the appropriate tiles in the tile layer depends on the URL to the tile layer. The URL contains parameterized values, which are used by the map viewer to dynamically request the tiles that correspond with the extent and scale of the web map as you pan and zoom (ESRI).</p>
+                    <ul>
+                            <li>Next we’ll add a tile layer to our map, in this case it's <a href="http://maps.stamen.com/#watercolor/12/37.7706/-122.3782" target="_blank">Stamen</a> Watercolor. Creating a tile layer usually involves setting the <a href="http://leafletjs.com/reference.html#url-template" target="_blank">URL template</a> for the tile images, the attribution text and the maximum zoom level of the layer:
+                        <pre></pre>
+                        The tutorial <a href="http://leafletjs.com/examples/quick-start.html" target="_blank">Leaflet Quick Start Guide</a> gives an example of using Mapbox</li>
+                         
+                    </ul>
+                    
+                    
+                    <h3><i class="fa fa-paint-brush"></i> Add vector data</h3>
+                    
+                    <p><b>GeoJSON</b> is a <strong>format</strong> for encoding a variety of geographic data structures. 
+
+A GeoJSON object may represent a geometry, a feature, or a collection of features. GeoJSON supports the 
+following <b>geometry types</b>: Point, LineString, Polygon, MultiPoint, MultiLineString, 
+MultiPolygon, and GeometryCollection. 
+
+Features in GeoJSON contain a geometry object and additional properties, and a feature collection represents 
+a list of features. (<a href="http://geojson.org" target="_blank">http://geojson.org</a>)</p>
+                    
+                    
+                    <h3><i class="fa fa-paint-brush"></i> Add styles</h3>
+                    
+                    
+                    <h3><i class="fa fa-paint-brush"></i> Add interactions</h3>
+                    
+                    
+                    <h3><i class="fa fa-paint-brush"></i> Add this to your portfolio!</h3>
+                    <hr>
+                </div>
+               
+            </div>
+        </div>
+
+    </div>
+    <!-- /.container -->
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <p>Copyright &copy; Ting Liu 2015</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+</body>
+
+</html>
