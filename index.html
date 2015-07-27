@@ -37,43 +37,6 @@
     <div class="brand">Create Your Leaflet <i class="fa fa-leaf"></i> Map</div>
     <div class="address-bar">GES 393 - GIS III Lecture 9</div>
 
-    <!-- Navigation
-    <nav class="navbar navbar-default" role="navigation">
-        <div class="container">
-            <!-- Brand and toggle get grouped for better mobile display
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>-->
-                <!-- navbar-brand is hidden on larger screens, but visible when the menu is collapsed
-            <a class="navbar-brand" href="index.html">Leaflet Map</a>
-            </div> 
-            
-            <!-- Collect the nav links, forms, and other content for toggling 
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
-                    <li>
-                        <a href="index.html">Home</a>
-                    </li>
-                    <li>
-                        <a href="about.html">About</a>
-                    </li>
-                    <li>
-                        <a href="blog.html"></a>
-                    </li>
-                    <li>
-                        <a href="contact.html">Contact</a>
-                    </li>
-                </ul>
-            </div>-->
-            <!-- /.navbar-collapse 
-        </div>-->
-        <!-- /.container
-    </nav>  -->
-
     <div class="container">
 
         <div class="row">
@@ -86,52 +49,53 @@
                     <hr>
                 </div>-->
                 <div class="col-lg-12 text-center" style="text-align:left">
-                    
-                    <iframe class="box" style="width: 100%; height: 500px" src="../GeoJSON_example/index.html"></iframe>
-                    
-                    <!--<img class="img-responsive img-border img-full" src="img/slide-1.jpg" alt="">-->
+                    <div id="top">
+                        <iframe src="map/map.html" width=100% height=400px frameborder=0 ></iframe>
+                    </div>
                     <h1>Tutorial: An Interactive Choropleth Map
                         <br>
                         <small>July 27, 2015</small>
                     </h1>
                     <br><br>
-                    <p>This tutorial will show you how to create a Leaftlet interactive map with the following components (<b>Project 2 Requirements</b>) : 
+                    <p>This tutorial will show you an example of how to create a Leaflet interactive map with the following components (<b>Project 2 Requirements</b>) : 
                     <br><i class="fa fa-spinner fa-spin"></i> Tile layer as <b>base map</b>
                     <br><i class="fa fa-spinner fa-spin"></i> Additonal <b>vector data layer</b> using GeoJSON format
                     <br><i class="fa fa-spinner fa-spin"></i> <b>Styles</b> (color, custom marker, etc.)
                     <br><i class="fa fa-spinner fa-spin"></i> <b>Interactions</b> (popups, mouse events, etc.)<br>
-                    </p>
+                    </p><br>
+                    <p>The example is to map median age at state level in 2010. If you already have a topic for Project 2, you may practice the following steps with your own data.</p>
                     
-                    <h3><i class="fa fa-paint-brush"></i> Preparation steps</h3>
+                    
+             <h3><i class="fa fa-paint-brush"></i> Preparation steps</h3>
                     <p>Before you start, you may consider to create a <b>new folder</b> for this tutorial where we can save the html, css and javascript files later.</p>
                     <ul>
                         <li>First, open your <b>html editor</b> (e.g., Notepad++) and add the following lines to prepare your page. 
                     These are the basic html tags we have introduced last time. Indentation in HTML is not as critical as in Python, but it helps us better organize the documents. <br>
                     <pre>&lt;!DOCTYPE html&gt;
 &lt;html&gt;
-&lt;head&gt;
-    &lt;title&gt;My map&lt;/title&gt;    
+    &lt;head&gt;
+        &lt;title&gt;My map&lt;/title&gt;    
 
-&lt;/head&gt;
+    &lt;/head&gt;
 
-&lt;body&gt;
+    &lt;body&gt;
    
-&lt;/body&gt;    
+   &lt;/body&gt;    
 &lt;/html&gt;</pre>
                     Then, save the document as <code>map.html</code> to your working folder. You will have to specify the file extension as <b>.html</b> to make it work.</li>
 
-                        <li><b>Download <a href="https://dl.dropboxusercontent.com/u/63869166/leaflet.zip">Leaflet</a>.</b> Unzip it and you will find two JavaScript files (<code>leaflet-src.js</code> and <code>leaflet.js</code>), one CSS file (<code>leaflet.css</code>) and one folder named <code>images</code>. Copy and paste all of these to your working folder (same location as your HTML file).</li>
+                        <li><b>Download <a href="https://dl.dropboxusercontent.com/u/63869166/leaflet.zip">Leaflet</a>.</b> Unzip it and you will find four items in it: two JavaScript files (<code>leaflet-src.js</code> and <code>leaflet.js</code>), one CSS file (<code>leaflet.css</code>) and one folder named <code>images</code>. Copy and paste <b>all of the four items</b> to your working folder (same location as your HTML file).</li>
                     
-                        <li>In the <code>head</code> section of your document, include the following line to link to the Leaflet CSS file (Note the <b>relative path</b> is used here as the map.html and leaflet.css file have been saved in the same folder):
+                        <li>In the <code>head</code> section of your html document, include the following line to link to the Leaflet CSS file (Note the <b>relative path</b> is used here as the map.html and leaflet.css file have been saved in the same folder):
                         <pre>&lt;link rel="stylesheet" href="leaflet.css" /&gt;</pre></li>
                     
                         <li>Also include Leaflet JavaScript file in the <code>head</code> section (Similarly, relative path!):
                     <pre>&lt;script src="leaflet.js"&gt;&lt;/script&gt;</pre></li>
                     
                         <li>In the <code>body</code> section, include a <code>div</code> element where you want your map to be. Assign it a certain id and define its height: 
-                        <pre>&lt;div id="map" style="height: 500px"&gt;&lt;/div&gt;</pre></li>
+                            <pre>&lt;div id=<span style="color:#cc6600">"map"</span> style="height: <span style="color:blue">500px</span>"&gt;&lt;/div&gt;</pre></li>
                         
-                        <li>Also in the <code>body</code> section, include the script element where you will write the code to create the map:
+                        <li>Also in the <code>body</code> section, include the <code>script</code> element below the <code>div</code> element:
                         <pre>&lt;script type="text/javascript"&gt;  
 
 &lt;/script&gt;</pre></li>
@@ -139,47 +103,216 @@
                     </ul>
                     <p>Now you’re ready to initialize the map and do some stuff with it.</p>
                     
-                    <h3><i class="fa fa-paint-brush"></i> Set up the base map</h3>
-                    <p>For setting up the base map, all code should be included in the <code>script</code> section we just created.</p>
+                    
+              <h3><i class="fa fa-paint-brush"></i> Set up the base map</h3>
+                    <p>For setting up the base map, all code should be placed in the <code>script</code> section we just created.</p>
                     <ul>
-                        <li>First we will initialize the map and set its view to our chosen geographical coordinates and a zoom level:
-                        <pre><var>var map</var> = L.map('map').setView([37.8, -96], 4);</pre></li>
+                        <li>First we will initialize the map and set its view to our chosen <b>geographical coordinates</b> and a <b>zoom level</b>:
+                            <pre><var>var map</var> = L.map(<span style="color:#cc6600">'map'</span>).setView(<span style="color:blue">[37.8, -96]</span>, <span style="color:blue">4</span>);</pre>
+                        About <b>Zoom Level</b>: Interactive, tiled maps are designed and rendered at a number of different scales. A zoom level is a predefined scale at which a map is rendered. OpenStreetMap, Google Maps, and most other online maps zoom levels are scaled such that the entire world fills a 256x256 pixel tile at zoom level 0, and doubles in width and height at each subsequent zoom level. For example: at zoom level 6 you get a full view of a medium-sized country. At zoom level 11 you’re looking at a metropolitan-region-sized area. At Zoom level 16 you’re down to a neighborhood scale (according to <a href="https://www.mapbox.com/tilemill/docs/manual/basics/" target="_blank">Mapbox</a>).</li>
                     </ul>
                         <br><p>With Leaflet, we can add tile layers as base map.
                     A <strong>tile layer</strong> is a set of web-accessible tiles that reside on a server. Access to the appropriate tiles in the tile layer depends on the URL to the tile layer. The URL contains parameterized values, which are used by the map viewer to dynamically request the tiles that correspond with the extent and scale of the web map as you pan and zoom (ESRI).</p>
                     <ul>
-                            <li>Next we’ll add a tile layer to our map, in this case it's <a href="http://maps.stamen.com/#watercolor/12/37.7706/-122.3782" target="_blank">Stamen</a> Watercolor. Creating a tile layer usually involves setting the <a href="http://leafletjs.com/reference.html#url-template" target="_blank">URL template</a> for the tile images, the attribution text and the maximum zoom level of the layer:
-                        <pre></pre>
-                        The tutorial <a href="http://leafletjs.com/examples/quick-start.html" target="_blank">Leaflet Quick Start Guide</a> gives an example of using Mapbox</li>
-                         
-                    </ul>
+                            <li>Next we will add a tile layer to our map, in this case it is <a href="http://maps.stamen.com/#watercolor/12/37.7706/-122.3782" target="_blank">Stamen</a> Toner. Creating a tile layer usually involves setting the <a href="http://leafletjs.com/reference.html#url-template" target="_blank"><b>URL template</b> (please read!!!)</a> for the tile images, the <b>attribution</b> text and the maximum zoom level of the layer:
+                                <pre>L.tileLayer(<span style="color:#cc6600">'http://{s}.tile.stamen.com/toner/{z}/{x}/{y}.jpg'</span>, {
+               attribution: <span style="color:#cc6600">'Map tiles by &lt;a href="http://stamen.com"&gt;Stamen Design&lt;/a&gt;, under &lt;a href="http://creativecommons.org/licenses/by/3.0"&gt;CC BY 3.0&lt;/a&gt;. Data by &lt;a href="http://openstreetmap.org"&gt;OpenStreetMap&lt;/a&gt;, under &lt;a href="http://www.openstreetmap.org/copyright"&gt;ODbL&lt;/a&gt;.'</span>,
+               maxZoom: <span style="color:blue">12</span>
+            }).addTo(map);</pre>
+                        Appropriate copyright <b>attribution</b> is usually required by the layer providers. You should be able to find official guidance on their website. Note the attribution text is a <b>string</b>.<br>       
+                        <br>
+                      If you have followed along, your map should look like below (No? Take a look at the <a href="map/basemap.txt" target="_blank">sample code</a>)
+                      <iframe src="map/basemap.html" width=95% height=400 frameborder=0></iframe><br><br>
+                      
+                      The tutorial <a href="http://leafletjs.com/examples/quick-start.html" target="_blank">Leaflet Quick Start Guide</a> gives an example of using <b>Mapbox</b> tilesets. You can also pull tiles from Open Street Map, Bing, MapQuest, and any other XYZ source you can find. Please take some time to explore at least one of these options on your own. Let me know if you have any questions.</li></ul>
                     
                     
-                    <h3><i class="fa fa-paint-brush"></i> Add vector data</h3>
-                    
-                    <p><b>GeoJSON</b> is a <strong>format</strong> for encoding a variety of geographic data structures. 
+             <h3><i class="fa fa-paint-brush"></i> Add vector data</h3>
+                    <p>The <a href="http://leafletjs.com/examples/quick-start.html" target="_blank">Leaflet Quick Start Guide</a> introduced how to add markers and shapes to your map <b>manually</b> using their geographic coordinates (e.g., locations and vertices).</p>
+                    <p>But you may wish to work with more complex spatial features as in a desktop GIS. So we introduce GeoJSON:</p>
+                    <ul>
+                        <li><b>GeoJSON</b> is a <strong>format</strong> for encoding a variety of geographic data structures. 
 
 A GeoJSON object may represent a geometry, a feature, or a collection of features. GeoJSON supports the 
 following <b>geometry types</b>: Point, LineString, Polygon, MultiPoint, MultiLineString, 
 MultiPolygon, and GeometryCollection. 
 
 Features in GeoJSON contain a geometry object and additional properties, and a feature collection represents 
-a list of features. (<a href="http://geojson.org" target="_blank">http://geojson.org</a>)</p>
+a list of features. (<a href="http://geojson.org" target="_blank">http://geojson.org</a>)</li>
+                        <li>If you have the shapefiles, working with GeoJSON is easy. Launch <strong>QGIS</strong> and add the shapefile (QGIS is open source and cross-platform so you can <a href="http://www.qgis.org/en/site/forusers/download.html" target=_blank>download it</a> and work at home). To prepare your data for web mapping, I have two general recommendataions:<br><br>
+                        &nbsp;&nbsp;(1) Simplify  the geometry of your features to generate smaller files. You can do this easily in QGIS, go to <b>Vector &gt; Geometry Tools &gt; Simplify Geometries</b>. Higher tolerance values would generate simpler features (smaller file size) but also lose some details.<br><br>
+                        &nbsp;&nbsp;(2) Delete those attribute fields that you do not need. In this case, I only kept two fields: <b>NAME10</b> (state names) and <b>MED_age</b> (median age).
+                        </li>
+                        
+                        <li>Next in the Layers panel of QGIS, right-click the layer and select <b>Save As...</b>. In the dialog window, set Format to <b>GeoJSON</b>, name the output file, and be sure to set the CRS to <b>EPSG:4326 - WGS 84</b> (see image below). Then click OK to save the GeoJSON file.<br><br>
+                            <img src="img/qgis.png" width=80% ></img></li>
+                        <li>Open the GeoJSON file in a text editor. Place the following at the very beginning of the GeoJSON document (see image below):
+                            <pre><span style="color: blue">var</span> <var>data = </var></pre>
+                            <img src="img/geojson.png" width=80% ></img></li>
+                         <li>Save the changed document as <code>data.js</code> to your <code>working folder</code> (where your html file is saved, it should contain 6 items now). Note the file extension is <code>.js</code>.                             
+                             <br>Here is a copy of the <a href="map/data.js" target="_blank">(data.js)</a> file I created.</li>
+                        <li>In the <code>head</code> section of your <code>map.html</code> document, include <code>data.js</code>:
+                            <pre>&lt;script type="text/javascript" src=<span style="color:#cc6600">"data.js"</span>&gt;&lt;/script&gt;</pre></li>
+                        <li>In your map <code>script</code> section, include the following to add the data.
+                            <pre>L.geoJson(<span style="color:#990099">data</span>).addTo(<span style="color:#990099">map</span>);</pre>
+                        The GeoJSON data layer is now added to the map! Take a look at the <a href="map/geojsondata.txt" target="_blank">sample code</a> if needed.
+                      <iframe src="map/geojsondata.html" width=95% height=400 frameborder=0></iframe></li>   
+                    </ul>
                     
                     
-                    <h3><i class="fa fa-paint-brush"></i> Add styles</h3>
+              <h3><i class="fa fa-paint-brush"></i> Add styles</h3>
+                    
+                    <p>If you will be working with <b>point</b> data, check out this <a href="http://leafletjs.com/examples/custom-icons.html" target="_blank">Leaflet tutorial</a> on how to define markers with <b>custom icons</b>.</p>
+                    
+                    <ul>
+                        <li>In this example, we will color the states according to their median age. For choosing colors, Leaflet recommends <a href="http://colorbrewer2.org/" target="_blank">ColorBrewer</a>. Using this tool, I picked the 4-class Greens:<br>
+                            <img src="img/green.png"></img></li>
+                        <li>Now we need to create a function that returns a color based on median age (Place the following lines <b>above</b> the line of <code>L.geoJson</code>):
+                            <pre>function getColor(<span style="color:#990099">value</span>) {
+    return <span style="color:#990099">value</span> &gt; <span style="color:blue">40</span>    ? <span style="color:#cc6600">'#238b45'</span>:
+           <span style="color:#990099">value</span> &gt; <span style="color:blue">37.5</span>  ? <span style="color:#cc6600">'#74c476'</span>:
+           <span style="color:#990099">value</span> &gt; <span style="color:blue">35</span>    ? <span style="color:#cc6600">'#bae4b3'</span>:
+                           <span style="color:#cc6600">'#edf8e9'</span>;
+}</pre> Note that you will need to change the <b>break values</b> and <b>colors</b> according to your data. Try to classify your data in QGIS or ArcGIS may help determine the intervals. Please follow the syntax carefully, though you do not have to fully understand it.</li>
+                        <li>Following the <code>getColor</code> function, we define another function for the GeoJSON layer so that its <code>fillColor</code> depends on <code>feature.properties.MED_age</code> property:
+<pre>function style(feature){
+    return {
+        fillColor: getColor(feature.properties.<span style="color:#990099">MED_age</span>),
+        weight: <span style="color:blue">2</span>,
+        opacity: <span style="color:blue">1</span>,
+        color: <span style="color:#cc6600">'white'</span>,
+        dashArray: <span style="color:#cc6600">'3'</span>,
+        fillOpacity: <span style="color:blue">0.9</span>
+    };
+}</pre>Replace <span style="color:#990099">MED_age</span> with your field name. <br>For the function attributes, you may tell what they do by their names, e.g., <code>fillColor</code> is to define the fillcolor of the features, <code>weight</code> is to define the weight of the boundary lines, etc. Please try to customize the appearance by adjusting the corresponding values.</li>
+                        <li>To make the functions work, we have to <b>modify</b> the line of <code>L.geoJson</code> to:
+                            <pre>L.geoJson(<span style="color:#990099">data</span>, {style:<span style="color:#990099">style</span>}).addTo(map);</pre>Please make sure the two functions are defined above <code>L.geoJson</code>.<br><br>
+                        Now we have a map with colors (<a href="map/color.txt" target="_blank">sample code</a>) !
+                        <iframe src="map/color.html" width=95% height=400 frameborder=0></iframe></li>
+                    </ul>
+              
+             <h3><i class="fa fa-paint-brush"></i> Add interactions</h3>
+                <p>This part is long, so take a break if you need.</p> 
+                <p>First, Let's make the states <b>highlighted visually when they are hovered with a mouse</b>.</p>
+                <ul>
+                    <li>In your map <code>script</code> section, include the function to define the mouseover event: 
+                        <pre>function highlightFeature(e) {
+     var layer = e.target;
+     
+     <span style="color: red">// You can adjust the attribute values below to change the styles of features on mouseover</span>
+     layer.setStyle({
+        weight: <span style="color:blue">5</span>,
+        color: <span style="color:#cc6600">'#666'</span>,
+        dashArray: <span style="color:#cc6600">''</span>,
+        fillOpacity: <span style="color:blue">0.7</span>
+     });
+                    
+     if (!L.Browser.ie &amp;&amp; !L.Browser.opera) {
+        layer.bringToFront();
+     }
+}</pre></li>
+                    <li><b>Remove the line of <code>L.geoJson</code></b>. Then include the following lines to define what happens on mouseout (paste directly without change): 
+                        <pre>var geojson
+                        
+function resetHighlight(e) {
+    geojson.resetStyle(e.target);
+    }</pre>The <code>geojson.resetStyle</code> method will reset the layer style to its default state (defined by our style function). For this to work, we defined the geojson variable to make it accessible.</li>
+                    <li>As an additonal behavior, we define a mouse click event to zoom to the state level (paste directly without change):
+                        <pre>function zoomToFeature(e) {
+    map.fitBounds(e.target.getBounds());
+}</pre></li>
+                    <li>Now we will define the <code>onEachFeature</code> function to add those behaviors to our us state layer. If you have used the same function and variable names so far, you can paste the lines below directly without making any change.
+                        <pre>function onEachFeature(feature, layer) {
+    layer.on({
+        mouseover: highlightFeature,
+        mouseout: resetHighlight,
+        click: zoomToFeature
+    });
+}
+
+geojson = L.geoJson(<span style="color:#990099">data</span>, {
+    style: <span style="color:#990099">style</span>,
+    onEachFeature: <span style="color:#990099">onEachFeature</span>
+}).addTo(map);</pre>Use the mouse to hover over and click the features in the map to see the changes we have made (<a href="map/mouseover.txt" target="_blank">sample code</a>):
+                    <iframe src="map/mouseover.html" width=95% height=400 frameborder=0></iframe></li>
+                </ul><br>
+                <p>When the mouse hovers over a state, it would be helpful to display some useful information (not only being highlighted visually). Here we will set up <b>popups</b> to show the state's name and median age. The Leaflet tutorial <a href="http://leafletjs.com/examples/choropleth.html" target="_blank">Interactive Choropleth Map</a> gives an example of using custom control to display information.</p>
+                <ul>
+                    <li>Place the following lines in the <code>highlightFeature</code> function to set up the popups on mouseover:
+                        <pre><span style="color:red">// Define the two variables to hold the values of the state names and their median age values. 
+// Change these according to your data. You are free to use any names for the variables, but be sure to use the original field name in the attribute table (case-sensitive!!!).</span>
+var <var>name</var> = layer.feature.properties.<span style="color:#990099">NAME10</span>;
+var <var>age</var> = layer.feature.properties.<span style="color:#990099">MED_age</span>;
+                
+L.popup()
+    .setLatLng(e.latlng)
+    
+    <span style="color:red"> // Define what you want to display in the popups.</span>
+    <span style="color:red"> // You will need to work with strings here. Review the html tags &lt;br&gt; and &lt;b&gt; if needed.</span>
+    .setContent(<span style="color:#cc6600">'Median Age'</span> + <span style="color:#cc6600">'&lt;br&gt;&lt;b&gt;'</span> + <var>name</var> + <span style="color:#cc6600">'&lt;/b&gt;&lt;br&gt;'</span> + <var>age</var>) 
+    .openOn(map)
+</pre></li>
+                    <li>Then, we will add legend to the map. In the <code>head</code> section of your map document, place the following lines to define the style of the legend:
+                        <pre>&lt;style&gt;
+    <span style="color:red">/* Change the values below to adjust the appearance of the legend */</span>
+    .legend {
+        padding: 6px 8px;
+        line-height: 18px;
+        background: rgba(255,255,255,0.9);
+        box-shadow: 0 0 15px rgba(0,0,0,0.2);
+        border-radius: 5px;
+    }      
+     
+     <span style="color:red">/* Change the values below to adjust the appearance of the legend color boxes */</span>
+     .legend i {
+        width: 18px;
+        height: 18px;
+        float: left;
+        margin-right: 8px;      
+        opacity: 0.7;
+    }
+&lt;/style&gt;
+</pre></li>
+                    <li>Next, in the <code>script</code> section, add the following lines to define how the legend will be created in your map:
+                        <pre>var legend = L.control({position: 'bottomright'}); <span style="color:red">// Try the other three corners if you like.</span>
+
+legend.onAdd = function (map) {
+
+    var div = L.DomUtil.create('div', 'legend'),
+        grades = [<span style="color:blue">0, 35, 37.5, 40</span>]; <span style="color:red">// The break values to define the intervals of median age</span>
+                
+    div.innerHTML = <span style="color:#cc6600">'&lt;b&gt;Median Age &lt;br&gt; 2010 &lt;br&gt;&lt;/b&gt;'</span>; <span style="color:red">// The legend title, in this case it's Median Age 2010</span>
+    
+    <span style="color:red">// Loop through our median age intervals and generate a label with a colored square for each interval.
+    // If you are creating a similar choropleth map, you do not need to change lines below. </span>
+    for (var i = 0; i &lt; grades.length; i++) {
+        div.innerHTML +=
+        '&lt;i style="background:' + getColor(grades[i] + 1) + '"&gt;&lt;/i&gt;' +
+        grades[i] + (grades[i + 1] ? '&amp;ndash;' + grades[i + 1] + '&lt;br&gt;' : '+');
+    }
+
+    return div;
+};
+
+legend.addTo(map);</pre>
+                        The legend will be created at the bottom right corner of your map with the defined styles and content.
+                    </li>
+                </ul>
+                <br><p>The final results with the popups and legend are shown on <a href="#top">the top of this page</a> (Take a look at the <a href="map/map.txt" target="_blank">sample code</a> if needed.)</p>
                     
                     
-                    <h3><i class="fa fa-paint-brush"></i> Add interactions</h3>
-                    
-                    
-                    <h3><i class="fa fa-paint-brush"></i> Add this to your portfolio!</h3>
+             <h3><i class="fa fa-paint-brush"></i> Add the map to your portfolio</h3>
+                    <ul>
+                        <li>Copy and paste your <b>working folder</b> to your portfolio's directory.</li>
+                        <li>Edit your portfolio's HTML file to place this to where you want to put the map.
+                            <pre>&lt;iframe src="<span style="color:#cc6600">workingfoldername</span>/map.html" width=<span style="color:blue">100%</span> height=<span style="color:blue">500px</span>&gt;&lt;/iframe&gt;</pre>
+                        Please use the name of your <code>working folder</code> and adjust the <code>height</code> value accordingly. You may wish to review the <a href="http://www.w3schools.com/tags/tag_iframe.asp" target="_blank">iframe</a> tag to further adjust the layout.</li>
+                    </ul>
                     <hr>
                 </div>
                
             </div>
         </div>
-
     </div>
     <!-- /.container -->
 
